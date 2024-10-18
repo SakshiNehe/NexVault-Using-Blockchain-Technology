@@ -44,7 +44,7 @@ function AboutUs() {
         <div className="section-content">
           <div className="text">
             <p>
-              At <strong>Evault</strong>, our mission is to revolutionize the way legal documents are stored and shared through blockchain technology. We provide a secure and transparent platform that enhances trust and accessibility for all users.
+              At <strong>NexVault</strong>, our mission is to revolutionize the way legal documents are stored and shared through blockchain technology. We provide a secure and transparent platform that enhances trust and accessibility for all users.
             </p>
             <p>
               Committed to excellence and continuous improvement, we empower individuals and businesses to manage their legal documents efficiently, ensuring data integrity and confidentiality at every step.
@@ -135,14 +135,14 @@ function AboutUs() {
         <p>
           Ready to secure your legal documents with the most advanced blockchain technology?{' '}
           <a href="#signup">Get Started</a> or <a href="#contact">Contact Us</a> to learn more
-          about how Evault can protect your valuable information.
+          about how NexVault can protect your valuable information.
         </p>
         <button className="btn">Get Started</button>
       </div>
 
       {/* Footer */}
       <footer>
-        <p>&copy; 2024 Evault. All rights reserved.</p>
+        <p>&copy; 2024 NexVault. All rights reserved.</p>
         <p>
           <a href="#mission">Mission</a> | <a href="#technology">Technology</a> |{' '}
           <a href="#team">Team</a> | <a href="#values">Values</a> |{' '}

@@ -93,7 +93,7 @@ function LearnMore() {
         <div className="section-content">
           <div className="text">
             <p>
-              Evault stands out in the industry due to our unwavering commitment to security, innovation, and customer satisfaction. Our platform is designed to provide seamless and reliable management of your legal documents.
+             NexVault stands out in the industry due to our unwavering commitment to security, innovation, and customer satisfaction. Our platform is designed to provide seamless and reliable management of your legal documents.
             </p>
             <p>
               By integrating cutting-edge blockchain technology, we ensure that your data remains immutable, transparent, and easily accessible whenever you need it.
@@ -122,7 +122,7 @@ function LearnMore() {
         <div className="testimonial">
           <FontAwesomeIcon icon={faQuoteLeft} className="quote-icon" />
           <p>
-            "Evault has transformed the way we manage our legal documents. Their platform is secure and easy to use!"
+            "NexVault has transformed the way we manage our legal documents. Their platform is secure and easy to use!"
           </p>
           <p>
             <strong>- Vedika Shastri</strong>
@@ -131,7 +131,7 @@ function LearnMore() {
         <div className="testimonial">
           <FontAwesomeIcon icon={faQuoteLeft} className="quote-icon" />
           <p>
-            "The blockchain technology used by Evault gives us peace of mind knowing our documents are safe."
+            "The blockchain technology used by NexVault gives us peace of mind knowing our documents are safe."
           </p>
           <p>
             <strong>- Nayan Iyyer</strong>
@@ -140,7 +140,7 @@ function LearnMore() {
         <div className="testimonial">
           <FontAwesomeIcon icon={faQuoteLeft} className="quote-icon" />
           <p>
-            "Partnering with Evault has streamlined our document workflows and enhanced our overall efficiency. Their support team is outstanding."
+            "Partnering with NexVault has streamlined our document workflows and enhanced our overall efficiency. Their support team is outstanding."
           </p>
           <p>
             <strong>- Sandhya Rathi</strong>
@@ -154,7 +154,7 @@ function LearnMore() {
           <span className="bold-text">Take the Next Step</span>
         </h2>
         <p>
-          Ready to enhance your legal document management with Evault's advanced solutions?{' '}
+          Ready to enhance your legal document management with NexVault's advanced solutions?{' '}
           <a href="#signup">Sign Up</a> today or <a href="#contact">Contact Us</a> to learn more about how we can assist you.
         </p>
         <button className="btn">Get Started</button>
@@ -162,7 +162,7 @@ function LearnMore() {
 
       {/* Footer */}
       <footer>
-        <p>&copy; 2024 Evault. All rights reserved.</p>
+        <p>&copy; 2024 NexVault. All rights reserved.</p>
         <p>
           <a href="#services" className="bold-text">Services</a> | <a href="#why-choose-us" className="bold-text">Why Choose Us</a> |{' '}
           <a href="#testimonials" className="bold-text">Testimonials</a>
