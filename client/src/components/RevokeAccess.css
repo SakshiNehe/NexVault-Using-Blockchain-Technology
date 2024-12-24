@@ -1,0 +1,83 @@
+.revoke-access-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(1, 4, 43); /* Dark blue background */
+    padding: 20px;
+    border-radius: 10px;
+    width: 450px; /* Same width as your existing modal */
+    height: auto; /* Adjust height based on content */
+    box-shadow: 0 4px 8px rgb(61, 89, 214); /* Blue shadow effect */
+    z-index: 999; /* Ensure it's on top */
+    text-align: center;
+}
+
+/* Close button */
+.revoke-access-modal .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: rgb(237, 237, 12); /* Yellow color for the close button */
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Button styles */
+.revoke-access-modal .confirm-btn {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease-in;
+    margin: 10px;
+}
+
+.revoke-access-modal .confirm-btn:hover {
+    background-color: rgb(3, 71, 3);
+}
+
+.revoke-access-modal .cancel-btn {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    margin: 10px;
+}
+
+.revoke-access-modal .cancel-btn:hover {
+    background-color: #b02a37;
+}
+
+/* List styling */
+.revoke-access-modal ul {
+    list-style: none;
+    padding: 0;
+}
+
+.revoke-access-modal li {
+    cursor: pointer;
+    margin: 5px 0;
+    color: white;
+    transition: color 0.3s;
+    
+}
+
+.revoke-access-modal li:hover {
+    color: rgb(237, 237, 12); /* Highlight color on hover */
+    text-decoration: underline;
+}
+h3{
+    color: yellow;
+}
+span{
+    color: rgb(203, 210, 238);
+}

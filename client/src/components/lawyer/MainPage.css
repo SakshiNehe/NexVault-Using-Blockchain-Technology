@@ -1,0 +1,349 @@
+.mainpage-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 8, 25, 0.2); 
+    backdrop-filter: blur(1px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.mainpage-modal-content {
+    display: flex;
+    background-color: rgb(1, 4, 43);
+    margin-top: 80px;
+    padding: 20px;
+    border-radius: 20px;
+    width: 1200px;
+    z-index: 1001;
+    box-shadow: 0 0 10px rgb(61, 89, 214);
+    height: 600px;
+    color: white;
+    position: relative; /* Add relative positioning for close button */
+}
+
+.cancel-btn{
+    color: white;
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: yellow;
+    cursor: pointer;
+}
+
+.sidebar {
+    width: 23%;
+    background-color: rgba(2, 0, 36, 0.8);
+    padding: 20px;
+}
+
+.sidebar h3 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    color: white;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #0a0a2e;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.sidebar ul li:hover {
+    background-color: #14144d;
+}
+
+.dashboard-content {
+    width: 80%;
+    padding-left: 40px;
+    padding-top: 20px;
+}
+
+.portal-title {
+    color: rgb(243, 243, 240);
+    font-size: 20px;
+}
+
+.portal-title span {
+    color: rgb(222, 222, 6);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.dashboard-button {
+    background: rgb(61, 89, 214);
+    padding: 20px;
+    border-radius: 8px;
+    border: none;
+    width: 200px;
+    text-align: center;
+    height: 100px;
+}
+
+.dashboard-button:hover {
+    cursor: pointer;
+    background-color: rgb(16, 37, 134);
+}
+
+.dashboard-button h3 {
+    color: rgb(216, 226, 69);
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.share-access-modal {
+    padding: 20px;
+    background: #1b1f2a;
+    color: white;
+    border-radius: 8px;
+}
+
+.address-input {
+    width: 100%;
+    padding: 10px;
+    /* margin-top: 70px; */
+    padding-top: 30px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #000;
+}
+
+.confirm-btn, .cancel-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    width: 100px;
+}
+
+.confirm-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.confirm-btn:hover, .cancel-btn:hover {
+    opacity: 0.8;
+}
+/* Client Document Access Modal */
+.access-client-documents {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(1, 4, 43);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(61, 89, 214);
+    width: 400px;
+    z-index: 1000;
+}
+
+.access-client-documents h3 {
+    color: #ffd700;
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.access-client-documents ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.access-client-documents li {
+    background-color: #1b1f2a;
+    color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.access-client-documents li:hover {
+    background-color: rgb(61, 89, 214);
+    color: #000;
+}
+
+.access-client-documents p {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+}
+
+.access-client-documents button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.access-client-documents button:hover {
+    opacity: 0.8;
+}
+
+.access-client-documents .confirm-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.access-client-documents .cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.access-client-documents input {
+    width: 80%; /* Input takes 80% of the modal's width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #007bff; /* Blue border */
+    background-color: rgb(9, 24, 68); /* Darker blue background for input */
+    color: white;
+    font-size: 16px;
+}
+
+.access-client-documents .loading-spinner {
+    text-align: center;
+    color: #ffd700;
+    font-size: 18px;
+}
+
+.access-client-documents .error {
+    color: red;
+    text-align: center;
+    font-size: 18px;
+}
+
+.access-client-documents .image-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.access-client-documents .image-list img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.access-client-documents .image-list img:hover {
+    border: 2px solid rgb(61, 89, 214);
+}
+
+/* Share Access Modal */
+.share-access-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(1, 4, 43); /* Dark blue background */
+    padding: 20px;
+    border-radius: 20px;
+    width: 400px; /* Same width as your existing modal */
+    height: auto; /* Adjust height based on content */
+    box-shadow: 0 4px 8px rgb(61, 89, 214); /* Blue shadow effect */
+    z-index: 999; /* Ensure it's on top */
+    text-align: center;
+    /* animation: slideDown 0.3s ease-out; Optional animation */
+  }
+  
+  /* Close Button for the modal */
+  .share-access-modal .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: rgb(237, 237, 12); /* Yellow color for the close button */
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Input field */
+  .share-access-modal .address-input {
+    width: 80%; /* Input takes 80% of the modal's width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #007bff; /* Blue border */
+    background-color: rgb(9, 24, 68); /* Darker blue background for input */
+    color: white;
+    font-size: 16px;
+  }
+  
+  /* Confirm button */
+  .share-access-modal .confirm-btn {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease-in;
+    margin: 10px;
+  }
+  
+  .share-access-modal .confirm-btn:hover {
+    background-color: rgb(3, 71, 3);
+    border-color: none;
+  }
+  
+  /* Cancel button */
+  .share-access-modal .cancel-btn {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    margin: 10px;
+  }
+  
+  .share-access-modal .cancel-btn:hover {
+    background-color: #b02a37;
+    border-color: #b02a37;
+  }
+  
+  /* Text inside the modal */
+  .share-access-modal .textArea {
+    color: white;
+  }
+  

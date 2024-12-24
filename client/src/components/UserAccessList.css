@@ -1,0 +1,127 @@
+/* Background overlay when modal is open */
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 8, 25, 0.2); /* Semi-transparent background */
+    backdrop-filter: blur(1px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure the modal is on top */
+  }
+  
+  /* Modal container */
+  .modalContainer {
+    width: 480px;
+    height: 250px;
+    margin-right: 20px;
+    background-color: rgb(1, 4, 43);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgb(61, 89, 214);
+    padding: 20px;
+    position: relative;
+    animation: slideDown 0.3s ease-out; /* Slide down animation */
+    z-index: 1001;
+  }
+  
+  /* Modal header/title */
+  .modalContainer .title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 15px;
+    color: rgb(222, 222, 6);;
+  }
+  
+  /* Modal body - input field */
+  .modalContainer .body input {
+    width: 90%;
+    padding: 10px;
+    margin: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  
+  /* Dropdown select styling */
+  .modalContainer form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* Modal footer */
+  .modalContainer .footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+    margin-left: 20px;
+  }
+  .modalContainer .special-close{
+    margin-top: 80px;
+  }
+  /* Buttons in footer */
+  .modalContainer .footer button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  /* Cancel button styling */
+  #cancelBtn {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  #cancelBtn:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Share button styling */
+  .modalContainer .footer button:last-child {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .modalContainer .footer button:last-child:hover {
+    background-color: #388e3c;
+  }
+  
+  /* Animation to slide modal down */
+  @keyframes slideDown {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Add responsiveness for smaller screens */
+  @media (max-width: 500px) {
+    .modalContainer {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    .modalContainer .title {
+      font-size: 18px;
+    }
+  
+    .modalContainer .footer button {
+      font-size: 14px;
+    }
+  }
+  
