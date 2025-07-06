@@ -1,36 +1,90 @@
-.navbar{
-  backdrop-filter:blur(30px);;
-}
-.navbar-brand {
-    font-family: "Jersey 25", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-    font-size: 50px;
-    color: rgb(214, 211, 211);
-    text-decoration: none;
-    margin-left: 30px;
-    margin-right: 740px;
-  }
-  .navbar-brand:link, .navbar-brand:hover, .navbar-brand:active {
-    color: rgb(214, 211, 211); 
-    text-decoration: none; 
-  }
-  .navbar-components{
-    font-size: 20px;
-    color: rgb(214, 211, 211); 
-    transition: transform 0.2s;
-  }
-  .navbar-components:hover{
-    transform: scale(1.1);
-    color:rgb(61, 89, 214);
-  }
-  /* .nav-link {
-    color: rgb(227, 227, 239); 
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(8, 0, 24, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2.8rem;
+  z-index: 1000;
 }
 
-.nav-link.active {
-    color: white; 
-    font-weight: bold; 
+.nav-brand {
+  font-family: "Jersey 25", sans-serif;
+  font-size: 3rem;
+  color: rgb(214, 211, 211);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-   */
+/* Hamburger for mobile */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  color: rgb(214, 211, 211);
+  cursor: pointer;
+}
+
+/* Hide checkbox */
+.nav-toggle {
+  display: none;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 6rem;
+}
+
+/* Enhanced styling for all navbar components */
+.navbar-components,
+.navbar-components:link,
+.navbar-components:visited,
+.navbar-components:focus,
+.navbar-components:active {
+  font-size: 1.2rem;
+  color: rgb(214, 211, 211) !important; /* Added !important to override browser defaults */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer; /* Ensure cursor pointer for spans */
+}
+
+.navbar-components:hover {
+  transform: scale(1.1);
+  color: rgb(214, 211, 211) !important; /* Keep consistent hover color */
+}
+
+/* Active state for NavLink components */
+.navbar-components.active {
+  color: rgb(222, 222, 6) !important;
+  font-weight: 600;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(8, 0, 24, 0.95);
+    display: none;
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .nav-toggle:checked + .hamburger + .nav-menu {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-brand {
+    font-size: 2rem;
+  }
+}

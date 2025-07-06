@@ -1,68 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './RevokeAccess.css';
 
 function RevokeAccess({ contract, setRevokeAccessOpen, currentDocument, account }) {
-    const [accessList, setAccessList] = useState([]);
-    const [selectedUser, setSelectedUser] = useState('');
+  const [accessList, setAccessList] = useState([]);
+  const [selectedUser, setSelectedUser] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    // Fetch users with access to the current document
-    const fetchAccessList = async () => {
-        try {
-            const data = await contract.shareAccess(); // Fetch the access list for the current user
-            const usersWithAccess = data?.filter(item => item.access) || []; // Only show users who have access
-            setAccessList(usersWithAccess);
-        } catch (error) {
-            console.error("Error fetching access list:", error);
-            setAccessList([]); // Set accessList to empty if there's an error
-        }
-    };
+  // Fetch users who currently have access to the document
+  const fetchAccessList = useCallback(async () => {
+    if (!contract) return;
 
-    useEffect(() => {
-        if (contract && account) {
-            fetchAccessList(); // Fetch access list on component mount
-        }
-    }, [contract, account]);
+    setLoading(true);
+    try {
+      const data = await contract.shareAccess();
+      const usersWithAccess = (data || []).filter(item => item.access);
+      setAccessList(usersWithAccess);
+    } catch (error) {
+      console.error("Error fetching access list:", error);
+      setAccessList([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [contract]);
 
-    // Function to revoke access from the selected user
-    const revokeAccess = async (userAddress) => {
-        try {
-            await contract.disallow(userAddress); // Call the disallow function from the contract
-            fetchAccessList(); // Refresh the access list after revocation
-            setRevokeAccessOpen(false); // Close the modal after revoking access
-        } catch (error) {
-            console.error("Error revoking access:", error);
-        }
-    };
+  useEffect(() => {
+    if (contract && account) {
+      fetchAccessList();
+    }
+  }, [contract, account, fetchAccessList]);
 
-    return (
-        <div className="revoke-access-modal">
-            {/* Close button */}
-            <button className="close-btn" onClick={() => setRevokeAccessOpen(false)}>X</button>
+  const revokeAccess = async (userAddress) => {
+    try {
+      await contract.disallow(userAddress);
+      await fetchAccessList();
+      setSelectedUser('');
+      setRevokeAccessOpen(false);
+    } catch (error) {
+      console.error("Error revoking access:", error);
+    }
+  };
 
-            <div className="revoke-access-content">
-                <h3>Revoke Access</h3>
-                <p>Select existing users to revoke access to the document:</p>
-                <ul>
-                    {accessList.length > 0 ? (
-                        accessList.map((user, index) => (
-                            <li key={index} onClick={() => setSelectedUser(user.user)}>
-                                {user.user}
-                            </li>
-                        ))
-                    ) : (
-                        <li>No users have access to this document</li>
-                    )}
-                </ul>
-                {selectedUser && accessList.length > 0 && (
-                    <div>
-                        <p>Are you sure you want to revoke access for {selectedUser}?</p>
-                        <button className="confirm-btn" onClick={() => revokeAccess(selectedUser)}>Confirm</button>
-                        <button className="cancel-btn" onClick={() => setRevokeAccessOpen(false)}>Cancel</button>
-                    </div>
-                )}
+  return (
+    <div className="revoke-access-modal">
+      <button className="close-btn" onClick={() => setRevokeAccessOpen(false)}>×</button>
+
+      <div className="revoke-access-content">
+        <h3>Revoke Access</h3>
+        <p>Select a user to revoke document access:</p>
+
+        {loading ? (
+          <p>Loading access list...</p>
+        ) : accessList.length > 0 ? (
+          <ul className="user-list">
+            {accessList.map((user, index) => (
+              <li key={index}>
+                <button
+                  className={`user-btn ${selectedUser === user.user ? 'selected' : ''}`}
+                  onClick={() => setSelectedUser(user.user)}
+                >
+                  {user.user}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No users currently have access to this document.</p>
+        )}
+
+        {selectedUser && (
+          <div className="confirmation-section">
+            <p>Are you sure you want to revoke access for <strong>{selectedUser}</strong>?</p>
+            <div className="button-group">
+              <button className="confirm-btn" onClick={() => revokeAccess(selectedUser)}>Confirm</button>
+              <button className="cancel-btn" onClick={() => setSelectedUser('')}>Cancel</button>
             </div>
-        </div>
-    );
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default RevokeAccess;

@@ -1,0 +1,51 @@
+.card {
+  background: rgba(26, 26, 64, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card--default {
+  border: 1px solid rgba(61, 89, 214, 0.2);
+}
+
+.card--primary {
+  border: 1px solid rgb(61, 89, 214);
+}
+
+.card--transparent {
+  background: transparent;
+  border: 1px solid rgba(61, 89, 214, 0.3);
+}
+
+/* Padding variants */
+.card--small {
+  padding: 16px;
+}
+
+.card--medium {
+  padding: 24px;
+}
+
+.card--large {
+  padding: 32px;
+}
+
+.card--hover {
+  cursor: pointer;
+}
+
+.card--hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .card--large {
+    padding: 20px;
+  }
+  
+  .card--medium {
+    padding: 16px;
+  }
+}

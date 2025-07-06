@@ -1,46 +1,107 @@
-.container{
-    margin-top: 130px;
-}
-.brand-logo{
-    margin-right: 0;
-    padding: 0;
-    width: 400px;
-    margin-top: 40px;
-    margin-left: 120px;
-}
-.bold-words{
-    color: rgb(222, 222, 6) !important;
-}
-.brand-lines{
-    color: rgb(214, 211, 211);
-    /* font-size: 100px; */
-    /* margin-top: 30px; */
-}
-.brand-lines h1{
-    font-size: 75px;
-}
-.brand-subLines h3 {
-    color: rgb(61, 89, 214);
-    /* margin-bottom: 0px; */
-}
-.buttons{
-    margin-top: 60px;
-}
-.btn{
-    height: 50px;
-    width: 180px;
-    color: white;
-    background: none;
-    border: 1px solid rgb(61, 89, 214);
-    border-radius: 50px;
-}
-.btn:hover{
-    color: white;
-    background: rgb(61, 89, 214);
-}
-.row {
-    margin-left: 0;
-    margin-right: 0;
+.branding-container {
+  margin: 190px 0px;
+  padding: 0 20px;
 }
 
+.branding-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1550px;
+  margin: 0 auto;
+  gap: 60px;
+}
 
+.branding-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.brand-lines h1 {
+  font-size: 95px;
+  /* font-weight: bold; */
+  color: rgb(214, 211, 211);
+  margin: 0 0 30px 0;
+  line-height: 1.1;
+}
+
+.bold-words {
+  color: rgb(222, 222, 6) !important;
+}
+
+.brand-sublines h3 {
+  color: rgb(61, 89, 214);
+  font-size: 2rem;
+  margin: 0 0 40px 0;
+  font-weight: 400;
+}
+
+.branding-buttons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.branding-buttons a {
+  text-decoration: none;
+}
+
+.branding-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: auto;
+}
+
+.brand-logo {
+  max-width: 100%;
+  height: auto;
+  width: 400px;
+  transition: transform 0.3s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .branding-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  
+  .brand-lines h1 {
+    font-size: 48px;
+  }
+  
+  .brand-sublines h3 {
+    font-size: 1.2rem;
+  }
+  
+  .branding-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .branding-buttons button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .brand-logo {
+    width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-lines h1 {
+    font-size: 36px;
+  }
+  
+  .branding-buttons {
+    gap: 15px;
+  }
+}

@@ -9,56 +9,57 @@ const FileUpload = ({ contract, account, provider, setIsOpen }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (file) {
-      try {
-        // Prepare file data for Pinata upload
-        const formData = new FormData();
-        formData.append("file", file);
+    if (!file) {
+      alert("Please select a file first.");
+      return;
+    }
 
-        // Upload file to Pinata
-        const resFile = await axios({
-          method: "post",
-          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-          data: formData,
-          headers: {
-            pinata_api_key: `adbf928b4f3c02322bc0`, // Use your actual Pinata API Key
-            pinata_secret_api_key: `8585954119c0db371c9e7e9f1df36a428a8f4b834a93109b2d9584991701d816`, // Use your actual Pinata Secret Key
-            "Content-Type": "multipart/form-data",
-          },
-        });
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
 
-        const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        console.log("IPFS Hash:", ImgHash);
+      const resFile = await axios({
+        method: "post",
+        url: "https://uploads.pinata.cloud/v3/files",
+        data: formData,
+        headers: {
+          pinata_api_key: "f2307323a8c5e77e5a53",
+          pinata_secret_api_key: "fbc08326e485eedae093564d668300c3291e260ebc2add02488954522e884bf4",
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-        // Connect contract with signer
-        const signer = provider.getSigner(); // Get the signer from the provider
-        const contractWithSigner = contract.connect(signer); // Connect the signer to the contract
+      const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+      console.log("✅ Uploaded to Pinata:", ImgHash);
 
-        // Call the add function in the contract to store the file hash on the blockchain
-        const transaction = await contractWithSigner.add(account, ImgHash, { gasLimit: 1000000 });
-        
-        // Wait for the transaction to be confirmed
-        await transaction.wait();
+      // ✅ Use contract directly since it's already connected with signer
+      const tx = await contract.add(account, ImgHash, {
+        gasLimit: 1000000,
+      });
 
-        // Alert the user
-        alert("Successfully uploaded file hash to blockchain");
+      await tx.wait();
+      alert("✅ Successfully uploaded file hash to blockchain!");
+      setFile(null);
+      setFileName("No file selected");
+    } catch (error) {
+      console.error("❌ Upload or Blockchain Error:", error);
 
-        // Reset the file input
-        setFileName("No file selected");
-        setFile(null);
-      } catch (error) {
-        console.error("Error uploading file or saving hash to blockchain:", error);
-        alert("Unable to upload file to Pinata or save hash to the blockchain.");
+      if (error.response) {
+        alert(`Pinata Error: ${error.response.data.error || "Check console."}`);
+      } else if (error.request) {
+        alert("No response from Pinata. Possible CORS or network issue.");
+      } else {
+        alert(`Error: ${error.message}`);
       }
     }
   };
 
-  // Handle file selection
   const retrieveFile = (e) => {
     const data = e.target.files[0];
-    console.log("Selected file:", data);
-    setFile(data);
-    setFileName(data.name);
+    if (data) {
+      setFile(data);
+      setFileName(data.name);
+    }
     e.preventDefault();
   };
 
@@ -67,9 +68,7 @@ const FileUpload = ({ contract, account, provider, setIsOpen }) => {
       <div className="modal-content">
         <button className="close-button" onClick={() => setIsOpen(false)}>X</button>
         <form className="form" onSubmit={handleSubmit}>
-          <label htmlFor="file-upload" className="choose">
-            Choose File
-          </label>
+          <label htmlFor="file-upload" className="choose">Choose File</label>
           <input
             disabled={!account}
             type="file"

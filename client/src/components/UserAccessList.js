@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './UserAccessList.css';
 
 const UserAccessList = ({ setUserAccessOpen, contract, currentDocument }) => {
   const [accessList, setAccessList] = useState([]);
 
-  const fetchAccessList = async () => {
+  const fetchAccessList = useCallback(async () => {
     try {
       const result = await contract.shareAccess(); // Fetch the access list
       if (result && Array.isArray(result)) {
@@ -17,13 +17,13 @@ const UserAccessList = ({ setUserAccessOpen, contract, currentDocument }) => {
     } catch (error) {
       console.error("Error fetching access list:", error);
     }
-  };
+  }, [contract]);
 
   useEffect(() => {
     if (contract && currentDocument) {
       fetchAccessList(); // Fetch access list when the contract and document are ready
     }
-  }, [contract, currentDocument]);
+  }, [contract, currentDocument, fetchAccessList]);
 
   return (
     <div className="modalBackground">

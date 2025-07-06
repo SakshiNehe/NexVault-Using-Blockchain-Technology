@@ -4,16 +4,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgb(1, 4, 43);
-    
     padding: 30px;
     border-radius: 20px;
     width: 1200px;
     z-index: 1000;
     box-shadow: 0 0 10px rgb(61, 89, 214);
-    height: 600px;  /* Adjusted height */
+    height: 600px;
     overflow-y: auto;
     color: white;
-    border-color:rgb(61, 89, 214) ;
+    border-color: rgb(61, 89, 214);
 }
 
 .instructions-modal h3 {
@@ -24,7 +23,7 @@
 
 .instructions-content {
     margin-top: -5px;
-    animation: slideDown 0.3s ease-out; /* Slide down animation */
+    animation: slideDown 0.3s ease-out;
 }
 
 .instructions-content p {
@@ -41,17 +40,26 @@
     margin-top: 30px;
 }
 
-.btn.connect-client, .btn.connect-lawyer {
+/* Updated styling for all three buttons */
+.btn.connect-client, 
+.btn.connect-lawyer, 
+.btn.connect-judge {
     background-color: #080018;
     color: white;
     border-radius: 50px;
     padding: 10px 20px;
     cursor: pointer;
-    border: 1px solid rgb(61, 89, 214);  /* Matching theme */
+    border: 1px solid rgb(61, 89, 214);
+    font-weight: 500; /* Make text more visible */
+    transition: all 0.3s ease; /* Smooth transition */
 }
 
-.btn.connect-client:hover, .btn.connect-lawyer:hover {
+.btn.connect-client:hover, 
+.btn.connect-lawyer:hover, 
+.btn.connect-judge:hover {
     background-color: rgb(61, 89, 214);
+    transform: translateY(-2px); /* Optional: slight lift effect */
+    box-shadow: 0 4px 8px rgba(61, 89, 214, 0.3); /* Optional: shadow effect */
 }
 
 .close-button {
@@ -64,11 +72,12 @@
     cursor: pointer;
     color: rgb(222, 222, 6);
 }
+
 .blur-background {
-    filter: blur(8px);  /* Adjust the blur level if needed */
-    transition: filter 0.1s ease;  /* Smooth transition effect */
-}
-span{
-    color: rgb(38, 76, 229) !important;
+    filter: blur(8px);
+    transition: filter 0.1s ease;
 }
 
+span {
+    color: rgb(38, 76, 229) !important;
+}

@@ -1,106 +1,150 @@
-/* Main Container for the Service Cards */
 .service-cards-container {
-    max-width: 1200px;
-    margin: 100px auto;
-    margin-bottom: 40px;
-    padding: 30px;
-    background: transparent;
-    border-radius: 15px;
-    text-align: center;
-  }
-  
-  /* Service Title Styling */
-  .service-text {
+  max-width: 1550px;
+  margin: 40px auto 120px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.service-title {
+  font-size: 3rem;
+  color: rgb(222, 222, 6);
+  margin-bottom: 100px;
+  position: relative;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.service-title::after {
+  content: '';
+  width: 80px;
+  height: 4px;
+  background: rgb(61, 89, 214);
+  position: absolute;
+  left: 50%;
+  bottom: -15px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.services-slider {
+  padding: 20px;
+  margin: 0 -15px;
+}
+
+.services-slider .slick-dots {
+  bottom: -45px;
+}
+
+.services-slider .slick-dots li button:before {
+  font-size: 12px;
+  color: rgb(222, 222, 6);
+}
+
+.services-slider .slick-center .service-card {
+  transform: scale(1.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.service-slide {
+  padding: 0 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.service-card {
+  height: 500px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.service-image-section {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 3px solid rgb(61, 89, 214);
+  transition: transform 0.3s ease;
+}
+
+.service-image:hover {
+  transform: scale(1.05);
+}
+
+.service-text-section {
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.service-card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgb(222, 222, 6);
+  margin-bottom: 12px;
+}
+
+.service-description {
+  font-size: 1rem;
+  color: rgb(214, 211, 211);
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 320px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .service-title {
     font-size: 2.5rem;
-    color: yellow;
-    margin-bottom: 30px;
   }
-  
-  .service-text span {
-    color: rgb(61, 89, 214); 
+  .service-card {
+    height: auto;
+    min-height: 400px;
   }
-  
-  /* Slick Slider Styling */
-  .slider .slick-list {
-    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .service-title {
+    font-size: 2rem;
   }
-  
-  .slider .slick-center .slider-card {
-    transform: scale(1.1); 
-    transition: transform 0.3s ease-in-out;
+  .service-card {
+    max-width: 90%;
+    height: auto;
   }
-  
-  .slick-dots li button:before {
-    font-size: 12px;
-    color: yellow; 
+  .service-image-section {
+    height: 180px;
   }
-  
-  /* Individual Card Styling */
-  .slider-card-container {
-    padding: 0 10px;
+  .service-image {
+    height: 100%;
   }
-  
-  .slider-card {
-    width: 100%;
-    min-width: 250px;
-    height: 450px;
-    background-color: transparent;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    color: rgb(214, 211, 211);
-    font-family: 'Roboto', sans-serif;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .service-cards-container {
+    padding: 10px;
   }
-  
-  .slider-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
+
+  .service-title {
+    font-size: 1.7rem;
   }
-  
-  /* Image Section */
-  .image-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+
+  .service-description {
+    font-size: 0.95rem;
   }
-  
-  .card-image {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 25px;
-    object-fit: cover;
-    border: 4px solid rgb(61, 89, 214);
-    transition: transform 0.3s ease;
-  }
-  
-  .card-image:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Text Section */
-  .text-section h3 {
-    font-size: 1.8rem;
-    padding:15px 0;
-    color: yellow;
-  }
-  
-  .card-description {
-    font-size: 1.2rem;
-    color: #ddd;
-    margin-bottom: 15px;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .slider-card {
-      width: 100%;
-      min-width: 250px;
-      height: auto;
-    }
-  }
-  
+}

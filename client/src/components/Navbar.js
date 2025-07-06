@@ -1,65 +1,124 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import '../App.css';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
-export default function Navbar() {
-    return (
-        <nav className="navbar navbar-expand-lg fixed-top">
-            <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/">NexVault</NavLink>
-                <button 
-                    className="navbar-toggler" 
-                    type="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#navbarNav" 
-                    aria-controls="navbarNav" 
-                    aria-expanded="false" 
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item mx-4">
-                            <NavLink 
-                                to="/" 
-                                className={({ isActive }) => 
-                                    `nav-link navbar-components ${isActive ? 'active' : ''}`} 
-                            >
-                                Home
-                            </NavLink>
-                        </li>
-                        <li className="nav-item mx-4">
-                            <NavLink 
-                                to="/About-us" 
-                                className={({ isActive }) => 
-                                    `nav-link navbar-components ${isActive ? 'active' : ''}`} 
-                            >
-                                About
-                            </NavLink>
-                        </li>
-                        <li className="nav-item mx-4">
-                            <NavLink 
-                                to="/" 
-                                className={({ isActive }) => 
-                                    `nav-link navbar-components ${isActive ? 'active' : ''}`} 
-                            >
-                                Services
-                            </NavLink>
-                        </li>
-                        <li className="nav-item mx-4">
-                            <NavLink 
-                                to="/" 
-                                className={({ isActive }) => 
-                                    `nav-link navbar-components ${isActive ? 'active' : ''}`} 
-                            >
-                                Pricing
-                            </NavLink>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    );
-}
+const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeSection, setActiveSection] = useState('');
+
+  const handleScrollToSection = (sectionId) => {
+    if (sectionId === 'home') {
+      // Special handling for home - navigate to home and scroll to top
+      if (location.pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navigate('/');
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+      }
+    } else {
+      // Handle other sections
+      if (location.pathname === '/') {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate('/');
+        setTimeout(() => {
+          document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  };
+
+  // Track which section is currently in view
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['services', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+
+      // Check if we're at the top of the page (home section)
+      if (scrollPosition < 200) { // Adjust this threshold as needed
+        setActiveSection('home');
+        return;
+      }
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            return;
+          }
+        }
+      }
+      setActiveSection('');
+    };
+
+    if (location.pathname === '/') {
+      window.addEventListener('scroll', handleScroll);
+      // Set initial state
+      handleScroll();
+      return () => window.removeEventListener('scroll', handleScroll);
+    } else {
+      setActiveSection(''); // Clear active section when not on home page
+    }
+  }, [location.pathname]);
+
+  const navItems = [
+    { to: '/', label: 'Home', sectionId: 'home' },
+    { to: '/AboutUs', label: 'About' },
+    { label: 'Services', sectionId: 'services' },
+    { label: 'Contact Us', sectionId: 'contact' },
+  ];
+
+  return React.createElement(
+    'nav',
+    { className: 'custom-navbar' },
+    React.createElement('div', { className: 'nav-brand' }, 'NexVault'),
+    React.createElement('input', {
+      type: 'checkbox',
+      id: 'nav-toggle',
+      className: 'nav-toggle',
+    }),
+    React.createElement(
+      'label',
+      { htmlFor: 'nav-toggle', className: 'hamburger' },
+      '☰'
+    ),
+    React.createElement(
+      'ul',
+      { className: 'nav-menu' },
+      ...navItems.map((item) =>
+        React.createElement(
+          'li',
+          { key: item.label },
+          item.sectionId
+            ? React.createElement(
+                'span',
+                {
+                  onClick: () => handleScrollToSection(item.sectionId),
+                  className: `navbar-components ${
+                    activeSection === item.sectionId ? 'active' : ''
+                  }`,
+                  style: { cursor: 'pointer' },
+                },
+                item.label
+              )
+            : React.createElement(
+                NavLink,
+                {
+                  to: item.to,
+                  className: ({ isActive }) =>
+                    `navbar-components ${isActive ? 'active' : ''}`,
+                },
+                item.label
+              )
+        )
+      )
+    )
+  );
+};
+
+export default Navbar;

@@ -2,33 +2,32 @@ import React, { useState } from "react";
 import img from "../assets/blockchainImg.png";
 import "./Branding.css";
 import Instructions from "./Instructions"; // Import the Modal component
-
+import Button from './ui/Button'
 export default function Branding({ contract, account, provider, onRoleSelected }) {
   const [modalOpen, setModalOpen] = useState(false); // State to handle modal
 
   return (
-    <div className="container">
-      <div className="row ml-2 brand-text align-items-center">
-        <div className="col-md-6 d-flex-column">
+    <div className="branding-container">
+      <div className="branding-content">
+        <div className="branding-text">
           <div className="brand-lines">
             <h1>
-              Lock In <span className="bold-words">Trust</span>,
-              <br />
+              Lock In <span className="bold-words">Trust</span>,<br />
               Unlock <br />
               <span className="bold-words">Security</span>
             </h1>
           </div>
-          <div className="brand-subLines mt-4">
+          <div className="brand-sublines">
             <h3>Your gateway to Protected Legal Assets</h3>
           </div>
-          <div className="buttons">
-            <button
-              type="button"
-              className="btn create-account"
+          <div className="branding-buttons">
+            <Button
+              variant="primary"
+              size="large"
               onClick={() => setModalOpen(true)} // Open modal on button click
             >
               Get Started
-            </button>
+            </Button>
 
             {/* Use <a> tag to open in a new tab */}
             <a
@@ -36,19 +35,15 @@ export default function Branding({ contract, account, provider, onRoleSelected }
               target="_blank"
               rel="noopener noreferrer" // For security, prevents the new page from accessing your page's window object
             >
-              <button type="button" className="btn learn-more mx-5">
+              <Button variant="secondary" size="large">
                 Learn More
-              </button>
+              </Button>
             </a>
           </div>
         </div>
-
-        {/* Brand image */}
-        <img
-          src={img}
-          className="col-md-5 img-fluid brand-logo"
-          alt="brand-logo"
-        />
+        <div className="branding-image">
+          <img src={img} alt="brand-logo" />
+        </div>
       </div>
 
       {/* Render the modal only when modalOpen is true */}

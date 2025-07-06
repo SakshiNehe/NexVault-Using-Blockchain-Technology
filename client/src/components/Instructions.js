@@ -1,22 +1,104 @@
 import React, { useState } from "react";
-import "./Instructions.css"; // Using the existing Instructions.css for styling
+import { ethers } from "ethers";
+import "./Instructions.css"; 
 import MainPage from './user-client/MainPage.js'; // Client's MainPage
-import Lawyer from './lawyer/MainPage.js'; // Lawyer's MainPage
+import Lawyer from './lawyer/MainPage.js'; 
 import Judge from './judge/Judge.js';
+
 const Instructions = ({ setModalOpen, onRoleSelected, contract, account, provider }) => {
-  const [showMainPage, setShowMainPage] = useState(false); // Track visibility of Client's MainPage
-  const [showLawyerPage, setShowLawyerPage] = useState(false); // Track visibility of Lawyer's MainPage
-  const [showJudgePage, setShowJudgePage] = useState(false); // Track visibility of Lawyer's MainPage
+  const [showMainPage, setShowMainPage] = useState(false);
+  const [showLawyerPage, setShowLawyerPage] = useState(false); 
+  const [showJudgePage, setShowJudgePage] = useState(false);
+  const [flashMessage, setFlashMessage] = useState("");
+
+  // Define the required addresses for each role
+  const clientAddress = "0x3FCE4c894F59e025CB9DcAE051a245d8Cac9F851";
+  const lawyerAddress = "0x6411c50580Cd29F2Ee2447B55Ca9b91FBd671155";
+  const judgeAddress = "0x2807c95AE1408a393f85De9F1615938790d2A821";
+
+  const showFlashMessage = (message) => {
+    setFlashMessage(message);
+    setTimeout(() => {
+      setFlashMessage("");
+    }, 3000);
+  };
+
+  const handleRoleClick = async (selectedRole) => {
+    try {
+      if (window.ethereum) {
+        // Get the current account from MetaMask
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const currentAddress = await signer.getAddress();
+
+        // Check if the current account matches the selected role
+        let requiredAddress;
+        switch (selectedRole) {
+          case "client":
+            requiredAddress = clientAddress;
+            break;
+          case "lawyer":
+            requiredAddress = lawyerAddress;
+            break;
+          case "judge":
+            requiredAddress = judgeAddress;
+            break;
+          default:
+            return;
+        }
+
+        if (currentAddress.toLowerCase() !== requiredAddress.toLowerCase()) {
+          showFlashMessage(`Please switch to the ${selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)} account in MetaMask.`);
+          return; // Don't proceed if account doesn't match
+        }
+
+        // If account matches, proceed with role selection
+        onRoleSelected(selectedRole);
+        
+        // Set the appropriate page to show
+        if (selectedRole === "client") {
+          setShowMainPage(true);
+        } else if (selectedRole === "lawyer") {
+          setShowLawyerPage(true);
+        } else if (selectedRole === "judge") {
+          setShowJudgePage(true);
+        }
+      } else {
+        showFlashMessage("MetaMask is not installed");
+      }
+    } catch (error) {
+      console.error("Error checking account:", error);
+      showFlashMessage("Error connecting to MetaMask. Please try again.");
+    }
+  };
 
   return (
-    <div className="instructions-container"> {/* Container for entire component */}
+    <div className="instructions-container">
+      {/* Flash message */}
+      {flashMessage && (
+        <div className="flash-message" style={{
+          position: 'fixed',
+          top: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          backgroundColor: '#ff4444',
+          color: 'white',
+          padding: '10px 20px',
+          borderRadius: '5px',
+          zIndex: 1001,
+          fontSize: '14px'
+        }}>
+          {flashMessage}
+        </div>
+      )}
+
       {/* Conditionally render Instructions modal */}
       {!showMainPage && !showLawyerPage && !showJudgePage && (
-        <div className="instructions-modal"> {/* Modal overlay class */}
+        <div className="instructions-modal">
           <button className="close-button" onClick={() => setModalOpen(false)}>
             X
           </button>
-          <div className="instructions-content"> {/* Modal content */}
+          <div className="instructions-content">
             <h3>Set Up MetaMask and Blockchain Access</h3>
             <div className="instructions-content">
               <p>
@@ -56,28 +138,19 @@ const Instructions = ({ setModalOpen, onRoleSelected, contract, account, provide
             <div className="instruction-buttons">
               <button
                 className="btn connect-client"
-                onClick={() => {
-                  onRoleSelected("client"); // Pass the role as "client"
-                  setShowMainPage(true); // Show Client's MainPage
-                }}
+                onClick={() => handleRoleClick("client")}
               >
                 Connect as Client
               </button>
               <button
                 className="btn connect-lawyer"
-                onClick={() => {
-                  onRoleSelected("lawyer"); // Pass the role as "lawyer"
-                  setShowLawyerPage(true); // Show Lawyer's MainPage
-                }}
+                onClick={() => handleRoleClick("lawyer")}
               >
                 Connect as Lawyer
               </button>
               <button
                 className="btn connect-judge"
-                onClick={() => {
-                  onRoleSelected("judge"); // Pass the role as "Judge"
-                  setShowJudgePage(true); // Show Judge's MainPage
-                }}
+                onClick={() => handleRoleClick("judge")}
               >
                 Connect as Judge
               </button>
@@ -89,31 +162,33 @@ const Instructions = ({ setModalOpen, onRoleSelected, contract, account, provide
       {/* Conditionally render Client's MainPage when showMainPage is true */}
       {showMainPage && (
         <MainPage
-          setMainPageOpen={setShowMainPage} // Control Client's MainPage visibility
+          setMainPageOpen={setShowMainPage} 
           contract={contract}
           account={account}
           provider={provider}
-          onRoleSelected={onRoleSelected} // Pass role selection callback
+          onRoleSelected={onRoleSelected} 
         />
       )}
 
       {/* Conditionally render Lawyer's MainPage when showLawyerPage is true */}
       {showLawyerPage && (
         <Lawyer
-          setMainPageOpen={setShowLawyerPage} // Control Lawyer's MainPage visibility
+          setMainPageOpen={setShowLawyerPage} 
           contract={contract}
           account={account}
           provider={provider}
-          onRoleSelected={onRoleSelected} // Pass role selection callback
+          onRoleSelected={onRoleSelected} 
         />
       )}
+
+      {/* Conditionally render Judge page when showJudgePage is true */}
       {showJudgePage && (
         <Judge
-          setMainPageOpen={setShowJudgePage} // Control judge's MainPage visibility
+          setMainPageOpen={setShowJudgePage} 
           contract={contract}
           account={account}
           provider={provider}
-          onRoleSelected={onRoleSelected} // Pass role selection callback
+          onRoleSelected={onRoleSelected} 
         />
       )}
     </div>

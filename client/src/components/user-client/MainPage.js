@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './MainPage.css';
 import { FaUpload, FaUserPlus, FaUserMinus, FaUserFriends } from 'react-icons/fa';
 import FileUpload from '../FileUpload';
@@ -14,10 +14,9 @@ function MainPage({ setMainPageOpen, contract, account, provider }) {
     const [isRevokeAccessOpen, setIsRevokeAccessOpen] = useState(false); // New state for revoke access modal
     const [documents, setDocuments] = useState([]); 
     const [selectedDocument, setSelectedDocument] = useState(null);
-    const [currentDocument, setCurrentDocument] = useState(null);
     const [latestDocument, setLatestDocument] = useState(null);
 
-    const fetchDocuments = async () => {
+    const fetchDocuments = useCallback(async () => {
         try {
             const dataArray = await contract.display(account);
             if (dataArray && dataArray.length > 0) {
@@ -27,13 +26,13 @@ function MainPage({ setMainPageOpen, contract, account, provider }) {
         } catch (error) {
             console.error("Error fetching documents:", error);
         }
-    };
+    }, [contract, account]);
 
     useEffect(() => {
         if (contract && account) {
             fetchDocuments();
         }
-    }, [contract, account]);
+    }, [contract, account, fetchDocuments]);
 
     return (
         <div className="mainpage-modal-overlay">
@@ -64,26 +63,17 @@ function MainPage({ setMainPageOpen, contract, account, provider }) {
                             <h3>Upload Document</h3>
                         </div>
 
-                        <div className="dashboard-button" onClick={() => {
-                            setCurrentDocument(latestDocument);
-                            setIsUserAccessOpen(true);
-                        }}>
+                        <div className="dashboard-button" onClick={() => setIsUserAccessOpen(true)}>
                             <FaUserFriends size={40} />
                             <h3>People with Access</h3>
                         </div>
 
-                        <div className="dashboard-button" onClick={() => {
-                            setCurrentDocument(latestDocument);
-                            setIsShareAccessOpen(true);
-                        }}>
+                        <div className="dashboard-button" onClick={() => setIsShareAccessOpen(true)}>
                             <FaUserPlus size={40} />
                             <h3>Grant Access</h3>
                         </div>
 
-                        <div className="dashboard-button" onClick={() => {
-                            setCurrentDocument(latestDocument);
-                            setIsRevokeAccessOpen(true); // Open revoke access modal
-                        }}>
+                        <div className="dashboard-button" onClick={() => setIsRevokeAccessOpen(true)}>
                             <FaUserMinus size={40} />
                             <h3>Revoke Access</h3>
                         </div>
